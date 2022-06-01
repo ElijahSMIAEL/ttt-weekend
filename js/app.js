@@ -40,6 +40,7 @@ function init() {
   squareEls.forEach(function(squares) {
     squares.addEventListener('click', handleClick)
   })
+  turn = 1
   messageEl.textContent = "It is X's turn to play!"
   boardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   board = [null, null, null, null, null, null, null, null, null]
@@ -113,6 +114,7 @@ function boardFilled() {
   if (boardValues.every(function(square) {
     return square !== 0
   })) {
+    checkWin()
     getWinner()
   }
 }
