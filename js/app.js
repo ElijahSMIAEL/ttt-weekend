@@ -10,7 +10,9 @@ let playerO = -1
 let playerX = 1
 let turn  = 1
 let winner
-let winningCombos = []      
+let winningCombos = []   
+let boardIsFilled = false 
+let gameIsStopped 
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -49,6 +51,8 @@ function init() {
     squares.textContent = ''
   })
   resetBtn.setAttribute('hidden', true)
+  boardIsFilled = false
+  gameIsStopped = false
 }
 function turnRender(evt) {
   if (turn === 1) {
@@ -61,24 +65,29 @@ function turnRender(evt) {
   }
 }
 function winRender() {
-  if (winner === 'T') {
-    messageEl.textContent = "Game is a draw!"
-  }
   if (winner === 'X') {
     messageEl.textContent = "X has won the game!"
   }
   if (winner === 'O') {
     messageEl.textContent = "O has won the game!"
   }
+  if (winner === 'T') {
+    messageEl.textContent = "Game is a draw!"
+  }
   endGame()
 }
 function getWinner(winValue) {
-  if(winValue === -3) {
+  if (winValue === -3) {
     winner = 'O'
-  } else if (winValue === 3) {
+    winRender()
+  } 
+  else if (winValue === 3) {
     winner = 'X'
-  } else winner = 'T'
-  winRender()
+    winRender()
+  } else {
+    winner = 'T' 
+    winRender()
+  }
 }
 function trackTurn() {
   turn *= -1
@@ -105,7 +114,7 @@ function checkWin() {
   let winValue = combo.reduce(function(prev, value) {
       return prev + value
     }, 0)
-    if (winValue === 3 || winValue === -3) {
+    if (winValue === 3 || winValue === -3 || boardIsFilled) {
       getWinner(winValue)
     }
   })
@@ -114,8 +123,8 @@ function boardFilled() {
   if (boardValues.every(function(square) {
     return square !== 0
   })) {
+    boardIsFilled = true
     checkWin()
-    getWinner()
   }
 }
 function successfulClick() {
@@ -123,7 +132,8 @@ function successfulClick() {
   trackSquareValue()
   updateWinCombos()
   checkWin()
-  boardFilled()
+  if (!gameIsStopped) {
+  boardFilled()}
 }
 function updateWinCombos() {
   winningCombos = [
@@ -138,6 +148,7 @@ function updateWinCombos() {
   ]
 }
 function endGame() {
+  gameIsStopped = true
   squareEls.forEach(function(squares) {
     squares.removeEventListener('click', handleClick)
   })
