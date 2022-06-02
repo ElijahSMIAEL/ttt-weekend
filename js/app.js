@@ -6,8 +6,8 @@ squareEls = document.querySelectorAll('.square')
 
 let board = [null, null, null, null, null, null, null, null, null]
 let boardValues
-let playerO = -1
-let playerX = 1
+let player1
+let player2
 let turn  = 1
 let winner
 let winningCombos = []   
@@ -27,7 +27,12 @@ board[5] = document.querySelector('#sq5')
 board[6] = document.querySelector('#sq6')
 board[7] = document.querySelector('#sq7')
 board[8] = document.querySelector('#sq8')
-
+playerOneInput = document.querySelector('#player1-input')
+playerTwoInput = document.querySelector('#player2-input')
+playerOneSubmit = document.querySelector('#submit-one') 
+playerTwoSubmit = document.querySelector('#submit-two')
+player1Display = document.querySelector('#player1-display')
+player2Display = document.querySelector('#player2-display')
 /*----------------------------- Event Listeners -----------------------------*/
 
 // squareEls.forEach(function(squares) {
@@ -35,15 +40,24 @@ board[8] = document.querySelector('#sq8')
 // })
 
 resetBtn.addEventListener('click', reset)
+playerOneSubmit.addEventListener('click', setPlayerOne)
+playerTwoSubmit.addEventListener('click', setPlayerTwo)
 
 /*-------------------------------- Functions --------------------------------*/
 
 function init() {
-  squareEls.forEach(function(squares) {
-    squares.addEventListener('click', handleClick)
-  })
+  player1Display.textContent = ''
+  player2Display.textContent = ''
+  player1 = ''
+  player2 = ''
+  playerOneInput.value = ''
+  playerTwoInput.value = ''
+  playerOneInput.removeAttribute('hidden')
+  playerOneSubmit.removeAttribute('hidden')
+  playerTwoInput.removeAttribute('hidden')
+  playerTwoSubmit.removeAttribute('hidden')
   turn = 1
-  messageEl.textContent = "It is X's turn to play!"
+  messageEl.textContent = "Please enter players names!"
   boardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   board = [null, null, null, null, null, null, null, null, null]
   winner = null
@@ -54,22 +68,44 @@ function init() {
   boardIsFilled = false
   gameIsStopped = false
 }
+function beginPlay() {
+  if (player1 !== '' && player2 !== '') {
+  squareEls.forEach(function(squares) {
+    squares.addEventListener('click', handleClick)
+  })
+  messageEl.textContent = `It is ${player1}'s turn to play!`
+  }
+}
+function setPlayerOne(evt) {
+  player1 = playerOneInput.value
+  playerOneInput.setAttribute('hidden', true)
+  playerOneSubmit.setAttribute('hidden', true)
+  player1Display.textContent = `${player1}`
+  beginPlay()
+}
+function setPlayerTwo(evt) {
+  player2 = playerTwoInput.value
+  playerTwoInput.setAttribute('hidden', true)
+  playerTwoSubmit.setAttribute('hidden', true)
+  player2Display.textContent = `${player2}`
+  beginPlay()
+}
 function turnRender(evt) {
   if (turn === 1) {
-    messageEl.textContent = "It is O's turn to play!"
+    messageEl.textContent = `It is ${player2}'s turn to play!`
     evt.target.textContent = 'X'
   }
   if (turn === -1) {
-    messageEl.textContent = "It is X's turn to play!"
+    messageEl.textContent = `It is ${player1}'s turn to play!`
     evt.target.textContent = 'O'
   }
 }
 function winRender() {
   if (winner === 'X') {
-    messageEl.textContent = "X has won the game!"
+    messageEl.textContent = `${player1} has won the game!`
   }
   if (winner === 'O') {
-    messageEl.textContent = "O has won the game!"
+    messageEl.textContent = `${player2} has won the game!`
   }
   if (winner === 'T') {
     messageEl.textContent = "Game is a draw!"

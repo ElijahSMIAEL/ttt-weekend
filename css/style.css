@@ -38,8 +38,10 @@ h2 {
 button {
   grid-column: 2 / 3;
   size: 40px;
-  margin: 50px;
+  margin: 50px 180px;
   border: solid 4px black;
+  background-color: #4a4e69;
+  color:#f2e9e4;
   border-radius: 10px;
 }
 h1, h2, #sidebar-one, #sidebar-two {
@@ -62,4 +64,17 @@ h1, h2, #sidebar-one, #sidebar-two {
 .input-name {
   border: solid 3px #22223b;
   color: #22223b;
+  border-radius: 4px;
+  background-color: #f2e9e4;
+}
+#submit-one, #submit-two {
+  margin: 3px;
+  border: solid 3px #22223b;
+  border-radius: 4px;
+  background-color: #f2e9e4;
+  color: #22223b;
+}
+.display {
+  font-size: x-large;
+  font-weight: bold;
 }
