@@ -50,9 +50,9 @@ function init() {
   playerOneInput.value = ''
   playerTwoInput.value = ''
   playerOneInput.removeAttribute('hidden')
-  playerOneSubmit.removeAttribute('hidden')
+  playerOneSubmit.style.display = 'flex'
   playerTwoInput.removeAttribute('hidden')
-  playerTwoSubmit.removeAttribute('hidden')
+  playerTwoSubmit.style.display = 'flex'
   turn = 1
   messageEl.textContent = "Please enter players names!"
   boardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -74,18 +74,22 @@ function beginPlay() {
   }
 }
 function setPlayerOne(evt) {
+  if (playerOneInput.value !== '') {
   player1 = playerOneInput.value
   playerOneInput.setAttribute('hidden', true)
-  playerOneSubmit.setAttribute('hidden', true)
+  playerOneSubmit.style.display = 'none'
   player1Display.textContent = `${player1}`
   beginPlay()
+  }
 }
 function setPlayerTwo(evt) {
+  if (playerTwoInput.value !== '') {
   player2 = playerTwoInput.value
   playerTwoInput.setAttribute('hidden', true)
-  playerTwoSubmit.setAttribute('hidden', true)
+  playerTwoSubmit.style.display = 'none'
   player2Display.textContent = `${player2}`
   beginPlay()
+  }
 }
 function turnRender(evt) {
   if (turn === 1) {
