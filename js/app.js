@@ -35,9 +35,6 @@ player1Display = document.querySelector('#player1-display')
 player2Display = document.querySelector('#player2-display')
 /*----------------------------- Event Listeners -----------------------------*/
 
-// squareEls.forEach(function(squares) {
-//   squares.addEventListener('click', handleClick)
-// })
 
 resetBtn.addEventListener('click', reset)
 playerOneSubmit.addEventListener('click', setPlayerOne)
@@ -102,7 +99,7 @@ function turnRender(evt) {
 }
 function winRender() {
   if (winner === 'X') {
-    messageEl.textContent = `${player1} has won the game!`
+    messageEl.textContent = `${player1} has won the game!` 
   }
   if (winner === 'O') {
     messageEl.textContent = `${player2} has won the game!`
