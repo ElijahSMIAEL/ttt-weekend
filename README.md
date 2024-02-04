@@ -1,1 +1,1 @@
-This is my Tic-Tac-Toe Web game. It is built simply using HTML5, CSS, and JavaScript. The deployed application can be found here: 
+This is my Tic-Tac-Toe Web game. It is built simply using HTML5, CSS, and JavaScript. The deployed application can be found here: https://eca-tic-tac-toe.netlify.app/
